@@ -1,5 +1,3 @@
-# System Preferences > Keyboard >
-defaults write NSGlobalDomain KeyRepeat -int 1
+#! /usr/bin/env bash
 
-# System Preferences > Keyboard >
-defaults write NSGlobalDomain InitialKeyRepeat -int 15
+cat $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/test/test.sh >> ~/Shaun/test.sh

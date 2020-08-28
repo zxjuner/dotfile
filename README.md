@@ -31,3 +31,6 @@ chmod +x ./setup-macos.sh && chmod +x ./install-app.sh
 ```
 
 完成以上操作请重启电脑！
+
+# License
+dotfile is available under the MIT license. See the LICENSE file for more info.
