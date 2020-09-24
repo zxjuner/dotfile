@@ -1,51 +1,58 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 # Ask for the administrator password upfront
 sudo -v
 
-
-# Never go into computer sleep mode
-sudo systemsetup -setcomputersleep Off > /dev/null
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 # System Preferences > Keyboard > Key Repeat
-defaults write NSGlobalDomain KeyRepeat -int 1
+defaults write NSGlobalDomain KeyRepeat -int 2
 
 # System Preferences > Keyboard > Delay Until Repeat
 defaults write NSGlobalDomain InitialKeyRepeat -int 15
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-# System Preferences > Trackpad > Tap to click
+# Trackpad: enable tap to click for this user and for the login screen
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
+defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-# Disable mouse “natural” (Lion-style) scrolling
-defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
+# Set mouse and scrolling speed.
+defaults write NSGlobalDomain com.apple.mouse.scaling -int 3
+defaults write NSGlobalDomain com.apple.trackpad.scaling -int 3
+defaults write NSGlobalDomain com.apple.scrollwheel.scaling -float 0.6875
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+# Sets displaysleep to 30 minutes
+sudo pmset -a displaysleep 30
+
+# Do not allow machine to sleep on charger
+#sudo pmset -c sleep 0
+
+# Set machine sleep to 5 minutes on battery
+#sudo pmset -b sleep 5
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 # Set language and text formats
 # Note: if you’re in the US, replace `EUR` with `USD`, `Centimeters` with
 # `Inches`, `en_GB` with `en_US`, and `true` with `false`.
-defaults write NSGlobalDomain AppleLanguages -array "zh-Hans-CN"
+defaults write NSGlobalDomain AppleLanguages -array "zh-Hans-CN" "en"
 defaults write NSGlobalDomain AppleLocale -string "zh_CN"
 defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
 defaults write NSGlobalDomain AppleMetricUnits -bool true
 
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-
-# Show language menu in the top right corner of the boot screen
-sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bool true
-
-# System Preferences > Accessibility > Mouse & Trackpad > Trackpad Potions
+# System Preferences > Accessibility > Mouse & Trackpad > Trackpad options
 defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
 
 defaults write com.apple.AppleMultitouchTrackpad Dragging -bool false
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Dragging -bool false
-
-# System Preferences > Accessibility > Mouse & Trackpad > Trackpad Potions
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
@@ -61,46 +68,59 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Dragging -bool
 # 10: Put display to sleep
 # 11: Launchpad
 # 12: Notification Center
-# Top left screen corner → Mission Control
-defaults write com.apple.dock wvous-tl-corner -int 2
+# Top left screen corner → no-op
+defaults write com.apple.dock wvous-tl-corner -int 0
 defaults write com.apple.dock wvous-tl-modifier -int 0
-# Top right screen corner → Show application windows
-defaults write com.apple.dock wvous-tr-corner -int 3
+# Top right screen corner → no-op
+defaults write com.apple.dock wvous-tr-corner -int 0
 defaults write com.apple.dock wvous-tr-modifier -int 0
-# Bottom left screen corner → Start screen saver
-defaults write com.apple.dock wvous-bl-corner -int 5
+# Bottom left screen corner → no-op
+defaults write com.apple.dock wvous-bl-corner -int 0
 defaults write com.apple.dock wvous-bl-modifier -int 0
 # Bottom right screen corner → Desktop
-defaults write com.apple.dock wvous-bl-corner -int 4
-defaults write com.apple.dock wvous-bl-modifier -int 0
+defaults write com.apple.dock wvous-br-corner -int 4
+defaults write com.apple.dock wvous-br-modifier -int 0
+
+# Enable highlight hover effect for the grid view of a stack (Dock)
+defaults write com.apple.dock mouse-over-hilite-stack -bool true
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 # Finder > Preferences > Show all filename extensions
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
-# Finder > Preferences > Show warning before changing an extension
+# Finder > Preferences > Hide warning before changing an extension
 defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 
-# Finder > Preferences > Show warning before removing from iCloud Drive
+# Finder > Preferences > Hide warning before removing from iCloud Drive
 defaults write com.apple.finder FXEnableRemoveFromICloudDriveWarning -bool false
 
 # Finder > View > As Column
 # icnv(Icon),Nlsv(List),glyv(gallery)
 defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
 
-# Finder > View > Show Path Bar
-defaults write com.apple.finder ShowPathbar -bool true
 # Display full POSIX path as Finder window title
 defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
 
 # Finder: show status bar
 defaults write com.apple.finder ShowStatusBar -bool true
 
-# Set Desktop as the default location for new Finder windows
-# For other paths, use `PfLo` and `file:///full/path/here/`
-defaults write com.apple.finder NewWindowTarget -string "PfDe"
+# Set ${HOME} as the default location for new Finder windows
+# Computer     : `PfCm`
+# Volume       : `PfVo`
+# $HOME        : `PfHm`
+# Desktop      : `PfDe`
+# Documents    : `PfDo`
+# All My Files : `PfAF`
+# For other paths, use `PfLo` and `file:///full/path/here/`(无效,已修改，待再次测试)
+defaults write com.apple.finder NewWindowTarget -string "PfHm"
 defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/"
+
+# Don't show icons for hard drives, servers, and removable media on the desktop
+defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool false
+defaults write com.apple.finder ShowHardDrivesOnDesktop -bool false
+defaults write com.apple.finder ShowMountedServersOnDesktop -bool false
+defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool false
 
 # Avoid creating .DS_Store files on network or USB volumes
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
@@ -109,27 +129,31 @@ defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 # Disable the warning before emptying the Trash
 defaults write com.apple.finder WarnOnEmptyTrash -bool false
 
+# Automatically open a new Finder window when a volume is mounted
+defaults write com.apple.frameworks.diskimages auto-open-ro-root -bool false
+defaults write com.apple.frameworks.diskimages auto-open-rw-root -bool false
+defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool false
+
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 # Safari > Preferences > Advanced
-defaults write com.apple.Safari.SandboxBroker ShowDevelopMenu -bool true
-# Enable the Develop menu in Safari
-#defaults write com.apple.Safari IncludeDevelopMenu -bool true
+#defaults write com.apple.Safari.SandboxBroker ShowDevelopMenu -bool true
+# Enable the Develop menu and the Web Inspector in Safari
+defaults write com.apple.Safari IncludeDevelopMenu -bool true
+defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
 
-# Show the full URL in the address bar (note: this still hides the scheme)
+# Show the full URL in the address bar (note: this still hides the scheme)（无效）
 defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true
 
-# Show Safari’s bookmarks bar by default
+# Show Safari’s bookmarks bar by default（无效,修改待测试）
 defaults write com.apple.Safari ShowFavoritesBar -bool true
+defaults write com.apple.Safari ShowFavoritesBar-v2 -bool true
 
-# Safari: show status bar(须测试)
+# Safari: show status bar(须测试)（无效,修改待测试）
 defaults write com.apple.Safari ShowStatusBar -bool true
-
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-# Others:
-
-# Completely Disable Dashboard
-defaults write com.apple.dashboard mcx-disabled -bool true
+defaults write com.apple.Safari ShowOverlayStatusBar -bool true
+defaults write com.apple.Safari ShowStatusBarInFullScreen -bool true
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
@@ -139,4 +163,4 @@ for app in "Dock" "Finder" "Safari"; do
 done
 
 # Done
-echo "Done. Note that some of these changes require a logout/restart to take effect."
+echo "已完成所有配置，重启后生效..."
