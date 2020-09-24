@@ -6,6 +6,7 @@ HOMEBREW_NO_AUTO_UPDATE=1
 # Install web apps.
 echo " ----- Install web apps ------"
 brew cask install java
+brew cask install alfred
 brew cask install android-studio
 brew cask install docker
 brew cask install sublime-text
