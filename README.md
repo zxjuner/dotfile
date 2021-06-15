@@ -18,7 +18,7 @@ git clone git@github.com:zxjuner/dotfile.git
 ```
 2. 切换到项目目录，修改 shell 脚本可执行权限
 ```
-chmod +x ./setup-macos.sh && chmod +x ./install-app.sh
+chmod +x ./setup-macos.sh && chmod +x ./install-app.sh && chmod +x ./config.sh
 ```
 3. 根据需要执行以下脚本
 - 设置 macOS
@@ -28,6 +28,10 @@ chmod +x ./setup-macos.sh && chmod +x ./install-app.sh
 - 安装软件及工具
 ```
 ./install-app.sh
+```
+- 配置
+```
+./config.sh
 ```
 
 完成以上操作请重启电脑！

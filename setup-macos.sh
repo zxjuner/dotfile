@@ -105,6 +105,9 @@ defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
 # Finder: show status bar
 defaults write com.apple.finder ShowStatusBar -bool true
 
+# Finder: show path bar
+defaults write com.apple.finder ShowPathBar -bool false
+
 # Set ${HOME} as the default location for new Finder windows
 # Computer     : `PfCm`
 # Volume       : `PfVo`
@@ -116,11 +119,11 @@ defaults write com.apple.finder ShowStatusBar -bool true
 defaults write com.apple.finder NewWindowTarget -string "PfHm"
 defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/"
 
-# Don't show icons for hard drives, servers, and removable media on the desktop
-defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool false
-defaults write com.apple.finder ShowHardDrivesOnDesktop -bool false
-defaults write com.apple.finder ShowMountedServersOnDesktop -bool false
-defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool false
+# Show icons for hard drives, servers, and removable media on the desktop
+defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
+defaults write com.apple.finder ShowHardDrivesOnDesktop -bool true
+defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
+defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 
 # Avoid creating .DS_Store files on network or USB volumes
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
@@ -154,6 +157,11 @@ defaults write com.apple.Safari ShowFavoritesBar-v2 -bool true
 defaults write com.apple.Safari ShowStatusBar -bool true
 defaults write com.apple.Safari ShowOverlayStatusBar -bool true
 defaults write com.apple.Safari ShowStatusBarInFullScreen -bool true
+
+# Safari: Enable the Develop menu and the Web Inspector in Safari (待测试)
+defaults write com.apple.Safari IncludeDevelopMenu -bool true
+defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
