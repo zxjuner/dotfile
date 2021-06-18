@@ -19,5 +19,7 @@ brew install virtualbox --cask
 brew install virtualbox-extension-pack --cask
 brew install imageoptim --cask
 brew install visual-studio-code --cask
+brew install calibre --cask
+brew install xmind --cask
 
 echo " ------------ END ------------"
